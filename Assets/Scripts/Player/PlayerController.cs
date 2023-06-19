@@ -62,6 +62,23 @@ public class PlayerController : MonoBehaviour
             _cam.transform.localRotation = Quaternion.Euler(_camRotation, 0f, 0f);
         }
 
+
+        //##################################################### Inventory ###########################################################
+        if(Input.GetKeyDown(KeyCode.Alpha1)){
+            _inventory.SelectItem(1);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2)){
+            _inventory.SelectItem(2);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha3)){
+            _inventory.SelectItem(3);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Q)){
+            _inventory.DropItem();
+        }
+
+
         //################################################## Player Movement ########################################################
         _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if(_isGrounded && _velocity.y < 0){
