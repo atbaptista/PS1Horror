@@ -19,7 +19,6 @@ public class Inventory : MonoBehaviour
     public LayerMask groundMask;
 
     private GameObject[] _inventory;
-    private GameObject _currentSelected;
     private int _currentIndex;
 
     // Start is called before the first frame update

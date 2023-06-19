@@ -18,11 +18,16 @@ public class PlayerController : MonoBehaviour
     public float interactDistance = 3.5f;
     public LayerMask itemMask;
 
+    //components
     private Camera _cam;
     private CharacterController _controller;
+
+    //player and camera movement
     private float _camRotation = 0f;
     private Vector3 _velocity;
     private bool _isGrounded;
+
+    //inventory
     private Inventory _inventory;
 
     // Start is called before the first frame update
