@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck; 
     public LayerMask groundMask;
 
+    [Header("Items")]
+    public float interactDistance = 3.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +36,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         GetInputs();
+        Cast();
     }
 
     private void GetInputs(){
@@ -69,5 +73,26 @@ public class PlayerController : MonoBehaviour
 
         _velocity.y += gravity * Time.deltaTime;
         _controller.Move(_velocity * Time.deltaTime);
+    }
+
+    private void Cast(){
+        //Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
+        Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
+        float rayLength = interactDistance;
+
+        // actual Ray
+        Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
+
+        // debug Ray
+        Debug.DrawRay(ray.origin, ray.direction * rayLength, Color.red);
+
+        RaycastHit hit;
+        if (!Physics.Raycast(ray, out hit, rayLength))
+        {
+            return;
+        }
+        // our Ray intersected a collider
+        Debug.Log(hit.transform.name);
     }
 }
