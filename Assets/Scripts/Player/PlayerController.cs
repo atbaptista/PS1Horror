@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Camera _cam;
-    private CharacterController _controller;
-    private float _camRotation = 0f;
-    private Vector3 _velocity;
-    private bool _isGrounded;
-
     [Header("Player Movement")]
     public float lookSensitivity = 50f;
     public float moveSpeed = 3f;
@@ -22,12 +16,26 @@ public class PlayerController : MonoBehaviour
 
     [Header("Items")]
     public float interactDistance = 3.5f;
+    public LayerMask itemMask;
+
+    //components
+    private Camera _cam;
+    private CharacterController _controller;
+
+    //player and camera movement
+    private float _camRotation = 0f;
+    private Vector3 _velocity;
+    private bool _isGrounded;
+
+    //inventory
+    private Inventory _inventory;
 
     // Start is called before the first frame update
     void Start()
     {
         _controller = GetComponent<CharacterController>();
         _cam = GetComponentInChildren<Camera>();
+        _inventory = GetComponent<Inventory>();
 
         //Cursor.lockState = CursorLockMode.Locked;
     }
@@ -59,6 +67,23 @@ public class PlayerController : MonoBehaviour
             _cam.transform.localRotation = Quaternion.Euler(_camRotation, 0f, 0f);
         }
 
+
+        //##################################################### Inventory ###########################################################
+        if(Input.GetKeyDown(KeyCode.Alpha1)){
+            _inventory.SelectItem(1);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2)){
+            _inventory.SelectItem(2);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha3)){
+            _inventory.SelectItem(3);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Q)){
+            _inventory.DropItem();
+        }
+
+
         //################################################## Player Movement ########################################################
         _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if(_isGrounded && _velocity.y < 0){
@@ -88,11 +113,16 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * rayLength, Color.red);
 
         RaycastHit hit;
-        if (!Physics.Raycast(ray, out hit, rayLength))
+        if (!Physics.Raycast(ray, out hit, rayLength, itemMask))
         {
             return;
         }
         // our Ray intersected a collider
         Debug.Log(hit.transform.name);
+
+        //interact button
+        if(Input.GetKeyDown(KeyCode.E)){
+            _inventory.PickupItem(hit);
+        }
     }
 }
