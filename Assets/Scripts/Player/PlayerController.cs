@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Camera _cam;
-    private CharacterController _controller;
-    private float _camRotation = 0f;
-    private Vector3 _velocity;
-    private bool _isGrounded;
-
     [Header("Player Movement")]
     public float lookSensitivity = 50f;
     public float moveSpeed = 3f;
@@ -22,12 +16,21 @@ public class PlayerController : MonoBehaviour
 
     [Header("Items")]
     public float interactDistance = 3.5f;
+    public LayerMask itemMask;
+
+    private Camera _cam;
+    private CharacterController _controller;
+    private float _camRotation = 0f;
+    private Vector3 _velocity;
+    private bool _isGrounded;
+    private Inventory _inventory;
 
     // Start is called before the first frame update
     void Start()
     {
         _controller = GetComponent<CharacterController>();
         _cam = GetComponentInChildren<Camera>();
+        _inventory = GetComponent<Inventory>();
 
         //Cursor.lockState = CursorLockMode.Locked;
     }
@@ -88,11 +91,16 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * rayLength, Color.red);
 
         RaycastHit hit;
-        if (!Physics.Raycast(ray, out hit, rayLength))
+        if (!Physics.Raycast(ray, out hit, rayLength, itemMask))
         {
             return;
         }
         // our Ray intersected a collider
         Debug.Log(hit.transform.name);
+
+        //interact button
+        if(Input.GetKeyDown(KeyCode.E)){
+            _inventory.PickupItem(hit);
+        }
     }
 }
