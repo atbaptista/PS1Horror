@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//to make a gameobject an item, add a collider to it and change its layer to the item layer
 public class Item : MonoBehaviour
 {
     // Start is called before the first frame update
