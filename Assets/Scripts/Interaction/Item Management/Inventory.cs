@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//keeps track of player's items and handles inventory UI
+//also handles certain actions that players can do with items (picking up, dropping)
 public class Inventory : MonoBehaviour
 {
     [Header("UI")]
@@ -34,10 +36,10 @@ public class Inventory : MonoBehaviour
     }
 
     //places item in inventory, this function is called from playercontroller script
-    public void PickupItem(RaycastHit hit){
+    public void PickupItem(GameObject item){
         for(int i = 0; i < _inventory.Length; i++){
             if(_inventory[i] == null){
-                _inventory[i] = hit.collider.gameObject;
+                _inventory[i] = item;
                 _inventory[i].transform.position = slotLocations[i].position;
 
                 //set current selected to item just picked up
@@ -62,6 +64,7 @@ public class Inventory : MonoBehaviour
     //this function is called from playercontroller script
     public void DropItem(){
         if(_inventory[_currentIndex] == null){
+            Debug.Log("slot empty, cant drop null");
             return;
         }
 
@@ -80,5 +83,29 @@ public class Inventory : MonoBehaviour
 
         //set inventory item to null
         _inventory[_currentIndex] = null;
+    }
+
+    //removes current item from inventory and returns it
+    public GameObject RemoveCurrentSelected(){
+        if(_inventory[_currentIndex] == null){
+            Debug.Log("slot empty, cant remove null");
+            return null;
+        }
+        //deselect current stand
+        stands[_currentIndex].GetComponent<MeshRenderer>().material = deselectedMaterial;
+        GameObject temp = _inventory[_currentIndex];
+        //set inventory item to null
+        _inventory[_currentIndex] = null;
+
+        return temp;
+    }
+
+    public bool Contains(GameObject item){
+        foreach(GameObject i in _inventory){
+            if (item.Equals(i)){
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -2114,6 +2114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1068281093}
   - component: {fileID: 1068281094}
+  - component: {fileID: 1068281095}
   m_Layer: 10
   m_Name: ITEM_Dumbbell Location
   m_TagString: Untagged
@@ -2155,8 +2156,22 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5642884, y: 0.23507634, z: 0.44077164}
-  m_Center: {x: 0.04006427, y: 0.012228341, z: 0.0055614556}
+  m_Size: {x: 0.5642884, y: 0.3995951, z: 0.5764537}
+  m_Center: {x: 0.04006428, y: 0.09448766, z: -0.016416626}
+--- !u!114 &1068281095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068281092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b274a3c1903b248add2406cffac331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemRequired: {fileID: 7792063966591631196}
+  solvedItemLocation: {fileID: 1068281093}
 --- !u!1 &1119849102
 GameObject:
   m_ObjectHideFlags: 0

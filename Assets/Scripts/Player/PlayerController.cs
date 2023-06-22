@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//handles all player input
+//controls player movement
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Movement")]
@@ -118,18 +120,12 @@ public class PlayerController : MonoBehaviour
             return;
         }
         // our Ray intersected a collider
-        Debug.Log(hit.transform.name);
-
-        if(hit.collider.gameObject.GetComponent<Item>()){
-            Debug.Log("this is an item!");
-        }
-        else{
-            Debug.Log("NOT AN ITEM!");
-        }
+        //Debug.Log(hit.transform.name);
 
         //interact button
         if(Input.GetKeyDown(KeyCode.E)){
-            _inventory.PickupItem(hit);
+            //pass the player into the interact function so items, puzzles, etc. can access player info like inventory etc.
+            hit.collider.GetComponent<Interactable>().Interact(this.gameObject);
         }
     }
 }

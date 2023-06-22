@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RequireItem : MonoBehaviour
+//implement interactable so player can activate puzzle
+//different puzzles will inherit this class and have different reactions to solving and failing the puzzle
+public abstract class RequireItem : MonoBehaviour, Interactable
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject itemRequired;
+    //protected bool _isFilled = false; //bool for if the puzzle currently has an item in it
+
+    //check if player inventory contains certain gameobject
+    public void Interact(GameObject Player)
     {
+        Debug.Log("Interact with puzzle");
         
+        //check if the item was the correct item
+        if(Player.GetComponent<Inventory>().Contains(itemRequired)){
+            PuzzleSolved(Player);
+        }
+        else{
+            PuzzleFailed(Player);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public abstract void PuzzleSolved(GameObject Player);
+    public abstract void PuzzleFailed(GameObject Player);
 }
