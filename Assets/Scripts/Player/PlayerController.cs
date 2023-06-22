@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Items")]
     public float interactDistance = 3.5f;
-    public LayerMask itemMask;
+    public LayerMask interactMask;
 
     //components
     private Camera _cam;
@@ -113,12 +113,19 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * rayLength, Color.red);
 
         RaycastHit hit;
-        if (!Physics.Raycast(ray, out hit, rayLength, itemMask))
+        if (!Physics.Raycast(ray, out hit, rayLength, interactMask))
         {
             return;
         }
         // our Ray intersected a collider
         Debug.Log(hit.transform.name);
+
+        if(hit.collider.gameObject.GetComponent<Item>()){
+            Debug.Log("this is an item!");
+        }
+        else{
+            Debug.Log("NOT AN ITEM!");
+        }
 
         //interact button
         if(Input.GetKeyDown(KeyCode.E)){
