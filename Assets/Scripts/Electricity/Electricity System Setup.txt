@@ -1,5 +1,0 @@
-to set up the electrical system, create x amount of switches with the ES_BreakerSwitch.cs script, make all switches children of the breaker box
-
-drag all the energy indicators into the energyIndicator array in the inspector, and select what their materials for being powered/unpowered should be
-
-implement the Powerable interface in a script and make it the component of an object that can be powered, then connect that object to one of the breaker switches
