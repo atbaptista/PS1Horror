@@ -14,7 +14,7 @@ public class ES_BreakerBox : MonoBehaviour
     
     
     [Header("Indicator Stuff")]
-    public GameObject[] energyIndicators;                       //set energy indicators to the energy cell things in the breaker box
+    public GameObject[] energyIndicators;                        //set energy indicators to the energy cell things in the breaker box
     public Material indicatorPowered;
     public Material indicatorUnpowered;
     

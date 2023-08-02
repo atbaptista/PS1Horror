@@ -130,4 +130,15 @@ public class PlayerController : MonoBehaviour
             hit.collider.GetComponent<Interactable>().Interact(this.gameObject);
         }
     }
+
+    public bool GetIsPlayerGrounded(){
+        return _isGrounded;
+    }
+
+    public bool IsPlayerMoving(){
+        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)){
+            return true;
+        }
+        return false;
+    }
 }
