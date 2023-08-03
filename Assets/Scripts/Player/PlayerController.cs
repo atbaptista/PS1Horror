@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
             _inventory.DropItem();
         }
 
-
+        
         //################################################## Player Movement ########################################################
         _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if(_isGrounded && _velocity.y < 0){
@@ -122,10 +122,23 @@ public class PlayerController : MonoBehaviour
         // our Ray intersected a collider
         //Debug.Log(hit.transform.name);
 
+
+        //#################################################### Interaction ##########################################################
         //interact button
         if(Input.GetKeyDown(KeyCode.E)){
             //pass the player into the interact function so items, puzzles, etc. can access player info like inventory etc.
             hit.collider.GetComponent<Interactable>().Interact(this.gameObject);
         }
+    }
+
+    public bool GetIsPlayerGrounded(){
+        return _isGrounded;
+    }
+
+    public bool IsPlayerMoving(){
+        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)){
+            return true;
+        }
+        return false;
     }
 }
